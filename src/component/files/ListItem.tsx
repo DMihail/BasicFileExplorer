@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {FilesStackParamList} from '../../navigation/types.ts';
@@ -8,12 +8,14 @@ import FileSvg from '../../../assets/svg/FileSvg.tsx';
 import {DropBoxFolder, FileType} from '../../utils/types.ts';
 import DotsMenu from './DotsMenu.tsx';
 import {COLORS} from '../../const/COLORS.ts';
-import {imageRegExp} from '../../utils/rules.ts';
+import {imageRegExp} from '../../const/rules.ts';
 import showSimpleToast from '../../utils/showSimpleToast.ts';
+import MetaModal from './MetaModal.tsx';
 
 type Props = DropBoxFolder & {type: FileType};
 
 const ListItem: FC<Props> = ({id, name, type, path_display}) => {
+  const [modalVisible, setModalVisible] = useState(false);
   const isFolder = type === 'folder';
   const isImage = imageRegExp.test(name);
   const navigation: NativeStackNavigationProp<
@@ -31,15 +33,27 @@ const ListItem: FC<Props> = ({id, name, type, path_display}) => {
     }
   };
 
+  const showModal = () => setModalVisible(true);
+
   return (
     <View style={styles.container}>
+      <MetaModal
+        visible={modalVisible}
+        setVisible={setModalVisible}
+        path={path_display}
+      />
       <TouchableOpacity onPress={pressFunc}>
         {isFolder ? <FolderSvg /> : <FileSvg />}
       </TouchableOpacity>
       <Text style={styles.title} numberOfLines={1} ellipsizeMode={'middle'}>
         {name}
       </Text>
-      <DotsMenu id={id} type={type} path_display={path_display} />
+      <DotsMenu
+        id={id}
+        type={type}
+        path_display={path_display}
+        showModal={showModal}
+      />
     </View>
   );
 };

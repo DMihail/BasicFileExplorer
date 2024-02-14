@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {MainStackParamList, NavigationProps} from './types.ts';
 import Files from '../screen/Files.tsx';
 import showSimpleToast from '../utils/showSimpleToast.ts';
-import {EmptyComponent} from '../component/EmptyComponent.ts';
+import {EmptyComponent} from '../component/EmptyComponent.tsx';
 import HomeSvg from '../../assets/svg/tabs/HomeSvg.tsx';
 import {COLORS} from '../const/COLORS.ts';
 import FilesSvg from '../../assets/svg/tabs/FilesSvg.tsx';

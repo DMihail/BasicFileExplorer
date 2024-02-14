@@ -11,6 +11,7 @@ type Props = {
   id: string;
   type: FileType;
   path_display: string;
+  showModal: () => void;
 };
 
 const menus = {
@@ -18,7 +19,7 @@ const menus = {
   file: [{title: 'Deleting'}, {title: 'Get Info'}],
 };
 
-const DotsMenu: FC<Props> = ({id, type, path_display}) => {
+const DotsMenu: FC<Props> = ({type, path_display, showModal}) => {
   const context = useContext(FilesContext);
   const action = async (name: string) => {
     switch (name) {
@@ -31,6 +32,7 @@ const DotsMenu: FC<Props> = ({id, type, path_display}) => {
         context?.setLoad(true);
         break;
       case 'Get Info':
+        showModal();
         break;
       default:
         break;

@@ -38,6 +38,16 @@ export async function getTemporaryLink(path = ''): Promise<string> {
   return data.link;
 }
 
+export async function getMetadata(path = ''): Promise<DropBoxFile> {
+  const {data} = await API.post('/2/files/get_metadata', {
+    path,
+  });
+  if (!data) {
+    throw new Error('Failed to get metadata');
+  }
+  return data;
+}
+
 export function* removeFileOrFolder(path: string) {
   try {
     const {data} = yield API.post('/2/files/delete_v2', {
