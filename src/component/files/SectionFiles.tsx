@@ -11,7 +11,7 @@ type Props = {
 
 const SectionFiles: FC<Props> = ({list, type}) => {
   return (
-    <View>
+    <View style={{flex: 1}}>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>{type}s</Text>
       </View>
@@ -53,12 +53,10 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   column: {
-    gap: 30,
+    flex: 1,
+    justifyContent: 'flex-start',
   },
   content: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 30,
+    gap: 10,
   },
 });

@@ -27,9 +27,13 @@ const persistConfig = {
 
 const sagaModules = {dropbox};
 
-type Data = {};
+type Data = {
+  linkPath: Array<string>;
+};
 
-const data = {dropbox};
+const data = {
+  linkPath: [],
+};
 // Use this type inside selectors
 export type ReduxStoreState = ReduxStoreStateTemplate<Data>;
 const builder = new ReduxBuilder(data);

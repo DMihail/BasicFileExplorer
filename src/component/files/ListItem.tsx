@@ -24,6 +24,7 @@ export default ListItem;
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    flex: 1,
   },
   title: {
     fontSize: 16,

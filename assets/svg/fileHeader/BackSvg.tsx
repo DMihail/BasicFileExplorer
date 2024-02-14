@@ -11,7 +11,7 @@ function BackSvg(props: SvgProps) {
       {...props}>
       <Path
         d="M7.36 13.678l-6-6.5 6-6.5"
-        stroke="#5888E5"
+        stroke={props.stroke ?? '#5888E5'}
         strokeOpacity={1}
         strokeWidth={2}
       />
