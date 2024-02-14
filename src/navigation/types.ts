@@ -5,7 +5,7 @@ import {
 
 export type MainStackParamList = {
   Home: undefined;
-  Files: undefined;
+  Files: {path: string};
   Create: undefined;
   Photos: undefined;
   Account: undefined;

@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, Text} from 'react-native';
 import {MainStackProps} from '../navigation/types.ts';
 import {SagaHelper} from '../redux';
-import {DropBoxFolder} from '../utiils/types.ts';
+import {DropBoxFolder} from '../utils/types.ts';
 import {COLORS} from '../const/COLORS.ts';
 import SectionFiles from '../component/files/SectionFiles.tsx';
 import Tools from '../component/Tools.tsx';

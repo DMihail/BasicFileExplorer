@@ -1,16 +1,15 @@
 import React, {FC} from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-
 import {View} from 'react-native';
 import ShareSvg from '../../assets/svg/tools/ShareSvg.tsx';
 import UploadFileSvg from '../../assets/svg/tools/UploadFileSvg.tsx';
 import NewFolderSvg from '../../assets/svg/tools/NewFolderSvg.tsx';
 import ScanSvg from '../../assets/svg/tools/ScanSvg.tsx';
 import {COLORS} from '../const/COLORS.ts';
-import showSimpleToast from '../utiils/showSimpleToast.ts';
+import showSimpleToast from '../utils/showSimpleToast.ts';
 
 const Tools: FC = () => {
-  const onPress = () => showSimpleToast('Not implemented');
+  const onPress = () => showSimpleToast();
 
   return (
     <View style={styles.container}>

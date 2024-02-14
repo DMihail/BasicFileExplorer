@@ -1,5 +1,5 @@
-import {API} from '../../utiils/API.ts';
-import {DropBoxFile, DropBoxFolder} from '../../utiils/types.ts';
+import {API} from '../../utils/API.ts';
+import {DropBoxFile, DropBoxFolder} from '../../utils/types.ts';
 
 export async function getListFolder(
   path = '',

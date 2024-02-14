@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import ContextMenu from 'react-native-context-menu-view';
 import {COLORS} from '../../const/COLORS.ts';
 import DotsSvg from '../../../assets/svg/DotsSvg.tsx';
-import {FileType} from '../../utiils/types.ts';
+import {FileType} from '../../utils/types.ts';
 import {SagaHelper} from '../../redux';
 
 type Props = {

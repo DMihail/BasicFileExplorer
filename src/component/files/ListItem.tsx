@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import FolderSvg from '../../../assets/svg/FolderSvg.tsx';
 import FileSvg from '../../../assets/svg/FileSvg.tsx';
-import {DropBoxFolder} from '../../utiils/types.ts';
+import {DropBoxFolder} from '../../utils/types.ts';
 import {View} from 'react-native';
 import DotsMenu from './DotsMenu.tsx';
 

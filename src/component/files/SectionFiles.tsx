@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {StyleSheet, FlatList, View, Text} from 'react-native';
 import ListItem from './ListItem.tsx';
-import {DropBoxFolder, FileType} from '../../utiils/types.ts';
+import {DropBoxFolder, FileType} from '../../utils/types.ts';
 import {COLORS} from '../../const/COLORS.ts';
 
 type Props = {
