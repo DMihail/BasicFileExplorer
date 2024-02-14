@@ -28,6 +28,16 @@ export async function getListFolder(
   }
 }
 
+export async function getTemporaryLink(path = ''): Promise<string> {
+  const {data} = await API.post('/2/files/get_temporary_link', {
+    path,
+  });
+  if (!data || !data.link) {
+    throw new Error('Failed to get link');
+  }
+  return data.link;
+}
+
 export function* removeFileOrFolder(path: string) {
   try {
     const {data} = yield API.post('/2/files/delete_v2', {

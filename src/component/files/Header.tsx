@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {View} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {FilesStackParamList} from '../../navigation/types.ts';
 import DownloadSvg from '../../../assets/svg/fileHeader/DownloadSvg.tsx';
@@ -17,14 +17,21 @@ const Header: FC = () => {
     FilesStackParamList,
     'StackFiles'
   > = useNavigation();
+  const route: RouteProp<FilesStackParamList, 'StackFiles'> = useRoute();
   const onPress = () => showSimpleToast();
+  console.log(route);
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.backContainer}
+        disabled={!route.params.path}
         onPress={() => navigation.goBack()}>
-        <BackSvg height={18} width={18} />
-        <Text style={styles.title}>Files</Text>
+        {route.params.path && (
+          <>
+            <BackSvg height={18} width={18} />
+            <Text style={styles.title}>Files</Text>
+          </>
+        )}
       </TouchableOpacity>
 
       <View style={styles.toolsContainer}>

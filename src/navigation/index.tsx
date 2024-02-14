@@ -51,7 +51,7 @@ export default function Navigation() {
           name="Files"
           component={StackFiles}
           options={{
-            header: () => <Header />,
+            headerShown: false,
             tabBarIcon: ({focused}) => (
               <FilesSvg fill={focused ? COLORS.blue : COLORS.white} />
             ),

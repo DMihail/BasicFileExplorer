@@ -5,11 +5,13 @@ import {FilesStackParamList} from '../../navigation/types.ts';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import FolderSvg from '../../../assets/svg/FolderSvg.tsx';
 import FileSvg from '../../../assets/svg/FileSvg.tsx';
-import {DropBoxFolder} from '../../utils/types.ts';
+import {DropBoxFolder, FileType} from '../../utils/types.ts';
 import DotsMenu from './DotsMenu.tsx';
 import {COLORS} from '../../const/COLORS.ts';
 
-const ListItem: FC<DropBoxFolder> = ({id, name, type, path_display}) => {
+type Props = DropBoxFolder & {type: FileType};
+
+const ListItem: FC<Props> = ({id, name, type, path_display}) => {
   const isFolder = type === 'folder';
   const navigation: NativeStackNavigationProp<
     FilesStackParamList,
@@ -18,9 +20,11 @@ const ListItem: FC<DropBoxFolder> = ({id, name, type, path_display}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() => {
-          navigation.push('StackFiles', {path: path_display});
-        }}>
+        onPress={() =>
+          navigation.push(isFolder ? 'StackFiles' : 'ImageView', {
+            path: path_display,
+          })
+        }>
         {isFolder ? <FolderSvg /> : <FileSvg />}
       </TouchableOpacity>
       <Text style={styles.title} numberOfLines={1} ellipsizeMode={'middle'}>
