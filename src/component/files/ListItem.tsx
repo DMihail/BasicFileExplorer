@@ -8,23 +8,32 @@ import FileSvg from '../../../assets/svg/FileSvg.tsx';
 import {DropBoxFolder, FileType} from '../../utils/types.ts';
 import DotsMenu from './DotsMenu.tsx';
 import {COLORS} from '../../const/COLORS.ts';
+import {imageRegExp} from '../../utils/rules.ts';
+import showSimpleToast from '../../utils/showSimpleToast.ts';
 
 type Props = DropBoxFolder & {type: FileType};
 
 const ListItem: FC<Props> = ({id, name, type, path_display}) => {
   const isFolder = type === 'folder';
+  const isImage = imageRegExp.test(name);
   const navigation: NativeStackNavigationProp<
     FilesStackParamList,
     'StackFiles'
   > = useNavigation();
+
+  const pressFunc = () => {
+    if (isFolder || isImage) {
+      navigation.push(isFolder ? 'StackFiles' : 'ImageView', {
+        path: path_display,
+      });
+    } else {
+      showSimpleToast();
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.push(isFolder ? 'StackFiles' : 'ImageView', {
-            path: path_display,
-          })
-        }>
+      <TouchableOpacity onPress={pressFunc}>
         {isFolder ? <FolderSvg /> : <FileSvg />}
       </TouchableOpacity>
       <Text style={styles.title} numberOfLines={1} ellipsizeMode={'middle'}>

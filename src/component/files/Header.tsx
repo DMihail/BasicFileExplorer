@@ -19,7 +19,7 @@ const Header: FC = () => {
   > = useNavigation();
   const route: RouteProp<FilesStackParamList, 'StackFiles'> = useRoute();
   const onPress = () => showSimpleToast();
-  console.log(route);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
