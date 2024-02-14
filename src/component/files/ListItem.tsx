@@ -6,13 +6,7 @@ import {DropBoxFolder} from '../../utiils/types.ts';
 import {View} from 'react-native';
 import DotsMenu from './DotsMenu.tsx';
 
-const ListItem: FC<DropBoxFolder> = ({
-  id,
-  name,
-  path_display,
-  path_lower,
-  type,
-}) => {
+const ListItem: FC<DropBoxFolder> = ({id, name, type, path_display}) => {
   const isFolder = type === 'folder';
   return (
     <View style={styles.container}>
@@ -20,7 +14,7 @@ const ListItem: FC<DropBoxFolder> = ({
         {isFolder ? <FolderSvg /> : <FileSvg />}
       </TouchableOpacity>
       <Text style={styles.title}>{name}</Text>
-      {/*<DotsMenu />*/}
+      <DotsMenu id={id} type={type} path_display={path_display} />
     </View>
   );
 };

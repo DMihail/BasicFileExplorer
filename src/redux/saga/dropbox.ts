@@ -27,3 +27,15 @@ export async function getListFolder(
     return {folder: [], files: []};
   }
 }
+
+export function* removeFileOrFolder(path: string) {
+  try {
+    const {data} = yield API.post('/2/files/delete_v2', {
+      path,
+    });
+  } catch (e) {
+    if (__DEV__) {
+      console.log(e);
+    }
+  }
+}

@@ -53,11 +53,12 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   column: {
-    gap: 20,
-    alignItems: 'center',
+    gap: 30,
   },
   content: {
-    gap: 20,
-    flexGrow: 1,
+    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 30,
   },
 });

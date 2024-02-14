@@ -1,39 +1,59 @@
-// import React, {useRef} from 'react';
-// import {Alert, Text, StyleSheet} from 'react-native';
-// import {
-//   Menu,
-//   MenuOptions,
-//   MenuOption,
-//   MenuTrigger,
-// } from 'react-native-popup-menu';
-// import {COLORS} from '../../const/COLORS.ts';
-//
-// function App() {
-//   return (
-//     // <Menu>
-//     //   <MenuTrigger text={'...'} />
-//     //   <MenuOptions>
-//     //     <MenuOption onSelect={() => Alert.alert(`Delete`)}>
-//     //       <Text style={styles.text}>Delete</Text>
-//     //     </MenuOption>
-//     //     <MenuOption onSelect={() => Alert.alert(`Delete`)}>
-//     //       <Text style={styles.text}>Delete</Text>
-//     //     </MenuOption>
-//     //   </MenuOptions>
-//     // </Menu>
-//   );
-// }
-//
-// const styles = StyleSheet.create({
-//   container: {
-//     width: 82,
-//   },
-//   text: {
-//     fontSize: 16,
-//     fontWeight: '400',
-//     lineHeight: 22,
-//     color: COLORS.black,
-//   },
-// });
-//
-// export default App;
+import React, {FC} from 'react';
+import {StyleSheet, View} from 'react-native';
+import ContextMenu from 'react-native-context-menu-view';
+import {COLORS} from '../../const/COLORS.ts';
+import DotsSvg from '../../../assets/svg/DotsSvg.tsx';
+import {FileType} from '../../utiils/types.ts';
+import {SagaHelper} from '../../redux';
+
+type Props = {
+  id: string;
+  type: FileType;
+  path_display: string;
+};
+
+const menus = {
+  folder: [{title: 'Removing'}],
+  file: [{title: 'Deleting'}, {title: 'Get Info'}],
+};
+
+const DotsMenu: FC<Props> = ({id, type, path_display}) => {
+  const action = async (name: string) => {
+    switch (name) {
+      case 'Removing':
+        await SagaHelper.run(['dropbox', 'removeFileOrFolder'], path_display);
+        break;
+      case 'Deleting':
+        await SagaHelper.run(['dropbox', 'removeFileOrFolder'], path_display);
+        break;
+      case 'Get Info':
+        break;
+      default:
+        break;
+    }
+  };
+
+  return (
+    <ContextMenu
+      actions={menus[type]}
+      dropdownMenuMode={true}
+      onPress={e => {
+        action(e.nativeEvent.name);
+      }}>
+      <View style={styles.container}>
+        <DotsSvg width={14} height={14} fill={COLORS.white} />
+      </View>
+    </ContextMenu>
+  );
+};
+
+export default DotsMenu;
+
+const styles = StyleSheet.create({
+  container: {
+    width: 82,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

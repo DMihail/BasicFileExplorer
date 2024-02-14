@@ -22,6 +22,7 @@ const Files = ({navigation}: MainStackProps<'Files'>) => {
   useEffect(() => {
     fetch();
   }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <SectionFiles list={content.folder} type={'folder'} />
