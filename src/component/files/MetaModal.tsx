@@ -67,7 +67,7 @@ const MetaModal: FC<Props> = ({visible, setVisible, path}) => {
                     <Text style={styles.title}>
                       {item[0].replace(/[^\w\s]|_/g, ' ').trim()}
                     </Text>
-                    <Text style={styles.value}>{item[1]}</Text>
+                    <Text style={styles.value}>{item[1].toString()}</Text>
                   </View>
                 ))}
             </ScrollView>
