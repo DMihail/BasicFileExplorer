@@ -13,6 +13,7 @@ import CreateSvg from '../../assets/svg/tabs/CreateSvg.tsx';
 import PhotosSvg from '../../assets/svg/tabs/PhotosSvg.tsx';
 import AccountSvg from '../../assets/svg/tabs/AccountSvg.tsx';
 import Header from '../component/files/Header.tsx';
+import StackFiles from './stack/FilesStack.tsx';
 
 const Tab = createBottomTabNavigator<MainStackParamList>();
 
@@ -48,10 +49,7 @@ export default function Navigation() {
         />
         <Tab.Screen
           name="Files"
-          component={Files}
-          initialParams={{
-            path: '',
-          }}
+          component={StackFiles}
           options={{
             header: () => <Header />,
             tabBarIcon: ({focused}) => (

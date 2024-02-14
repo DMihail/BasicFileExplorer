@@ -11,7 +11,7 @@ type Props = {
 
 const SectionFiles: FC<Props> = ({list, type}) => {
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.container}>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>{type}s</Text>
       </View>
@@ -26,13 +26,15 @@ const SectionFiles: FC<Props> = ({list, type}) => {
             type={type}
           />
         )}
-        numColumns={3}
+        horizontal={true}
         contentContainerStyle={styles.content}
-        columnWrapperStyle={styles.column}
-        style={{
-          padding: 10,
-        }}
+        style={styles.list}
         keyExtractor={item => item.name}
+        ListEmptyComponent={() => (
+          <View style={styles.emptyContainer}>
+            <Text style={styles.notFound}>Not found</Text>
+          </View>
+        )}
       />
     </View>
   );
@@ -41,6 +43,9 @@ const SectionFiles: FC<Props> = ({list, type}) => {
 export default SectionFiles;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   section: {
     padding: 7,
     backgroundColor: COLORS.grey,
@@ -52,11 +57,22 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     textTransform: 'uppercase',
   },
-  column: {
-    flex: 1,
-    justifyContent: 'flex-start',
-  },
   content: {
-    gap: 10,
+    flexGrow: 1,
+    gap: 30,
+  },
+  list: {
+    paddingVertical: 20,
+    marginHorizontal: 20,
+  },
+  notFound: {
+    fontSize: 20,
+    fontWeight: '400',
+    lineHeight: 22,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

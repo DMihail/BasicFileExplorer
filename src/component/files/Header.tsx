@@ -2,6 +2,8 @@ import React, {FC} from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {FilesStackParamList} from '../../navigation/types.ts';
 import DownloadSvg from '../../../assets/svg/fileHeader/DownloadSvg.tsx';
 import LoupeSvg from '../../../assets/svg/fileHeader/LoupeSvg.tsx';
 import BackSvg from '../../../assets/svg/fileHeader/BackSvg.tsx';
@@ -11,7 +13,10 @@ import CheckBoxSvg from '../../../assets/svg/fileHeader/CheckBoxSvg.tsx';
 import showSimpleToast from '../../utils/showSimpleToast.ts';
 
 const Header: FC = () => {
-  const navigation = useNavigation();
+  const navigation: NativeStackNavigationProp<
+    FilesStackParamList,
+    'StackFiles'
+  > = useNavigation();
   const onPress = () => showSimpleToast();
   return (
     <View style={styles.container}>

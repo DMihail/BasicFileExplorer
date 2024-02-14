@@ -1,14 +1,15 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
-import {MainStackProps} from '../navigation/types.ts';
+import {SafeAreaView, StyleSheet, Text, ScrollView} from 'react-native';
+import {FilesStackProps} from '../navigation/types.ts';
 import {SagaHelper} from '../redux';
 import {DropBoxFolder} from '../utils/types.ts';
 import {COLORS} from '../const/COLORS.ts';
 import SectionFiles from '../component/files/SectionFiles.tsx';
 import Tools from '../component/Tools.tsx';
 import ListSettings from '../component/files/ListSettings.tsx';
+import Loader from '../component/Loader.tsx';
 
-const Files = ({navigation}: MainStackProps<'Files'>) => {
+const Files = ({route}: FilesStackProps<'StackFiles'>) => {
   const [content, setContent] = useState<{
     folder: Array<DropBoxFolder>;
     files: Array<DropBoxFolder>;
@@ -16,27 +17,40 @@ const Files = ({navigation}: MainStackProps<'Files'>) => {
     folder: [],
     files: [],
   });
+  const [load, setLoad] = useState<boolean>(true);
+
   const fetch = useCallback(async () => {
-    const data = await SagaHelper.run(['dropbox', 'getListFolder'], '');
+    setLoad(true);
+    const data = await SagaHelper.run(
+      ['dropbox', 'getListFolder'],
+      route.params.path,
+    );
     setContent(data);
-  }, []);
+    setLoad(false);
+  }, [route.params]);
 
   useEffect(() => {
     fetch();
-  }, []);
+  }, [route.params]);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Documents</Text>
-      <Text style={styles.subTitle}>Only you</Text>
+      {!load ? (
+        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+          <Text style={styles.title}>Documents</Text>
+          <Text style={styles.subTitle}>Only you</Text>
 
-      <Tools />
-      <ListSettings />
-      <SectionFiles list={content.folder} type={'folder'} />
-      <SectionFiles list={content.files} type={'file'} />
-      <Text style={styles.count}>
-        {content.folder.length} Folders, {content.files.length} File
-      </Text>
+          <Tools />
+          <ListSettings />
+          <SectionFiles list={content.folder} type={'folder'} />
+          <SectionFiles list={content.files} type={'file'} />
+          <Text style={styles.count}>
+            {content.folder.length} Folders, {content.files.length} File
+          </Text>
+        </ScrollView>
+      ) : (
+        <Loader />
+      )}
     </SafeAreaView>
   );
 };
@@ -53,6 +67,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginLeft: 20,
     marginBottom: 10,
+    color: COLORS.white,
   },
   subTitle: {
     fontSize: 16,
@@ -60,11 +75,13 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     marginLeft: 20,
     marginBottom: 20,
+    color: COLORS.white,
   },
   count: {
     fontSize: 16,
     fontWeight: '400',
     textAlign: 'center',
     marginVertical: 24,
+    color: COLORS.white,
   },
 });
