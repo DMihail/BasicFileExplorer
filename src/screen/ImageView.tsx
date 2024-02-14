@@ -13,7 +13,7 @@ import {getTemporaryLink} from '../redux/saga/dropbox.ts';
 import showSimpleToast from '../utils/showSimpleToast.ts';
 import BackSvg from '../../assets/svg/fileHeader/BackSvg.tsx';
 
-const ImageView = ({navigation, route}: FilesStackProps<'StackFiles'>) => {
+const ImageView = ({navigation, route}: FilesStackProps<'ImageView'>) => {
   const [uri, setUri] = useState<string>();
   const [load, setLoad] = useState<boolean>(true);
 

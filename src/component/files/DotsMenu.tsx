@@ -1,10 +1,11 @@
-import React, {FC} from 'react';
+import React, {FC, useContext} from 'react';
 import {StyleSheet, View} from 'react-native';
 import ContextMenu from 'react-native-context-menu-view';
 import {COLORS} from '../../const/COLORS.ts';
 import DotsSvg from '../../../assets/svg/DotsSvg.tsx';
 import {FileType} from '../../utils/types.ts';
 import {SagaHelper} from '../../redux';
+import {FilesContext} from '../../screen/Files.tsx';
 
 type Props = {
   id: string;
@@ -18,13 +19,16 @@ const menus = {
 };
 
 const DotsMenu: FC<Props> = ({id, type, path_display}) => {
+  const context = useContext(FilesContext);
   const action = async (name: string) => {
     switch (name) {
       case 'Removing':
         await SagaHelper.run(['dropbox', 'removeFileOrFolder'], path_display);
+        context?.setLoad(true);
         break;
       case 'Deleting':
         await SagaHelper.run(['dropbox', 'removeFileOrFolder'], path_display);
+        context?.setLoad(true);
         break;
       case 'Get Info':
         break;

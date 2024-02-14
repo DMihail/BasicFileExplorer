@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState, createContext} from 'react';
 import {SafeAreaView, StyleSheet, Text, ScrollView} from 'react-native';
 import {FilesStackProps} from '../navigation/types.ts';
 import {SagaHelper} from '../redux';
@@ -8,6 +8,12 @@ import SectionFiles from '../component/files/SectionFiles.tsx';
 import Tools from '../component/Tools.tsx';
 import ListSettings from '../component/files/ListSettings.tsx';
 import Loader from '../component/Loader.tsx';
+
+type Context = {
+  setLoad: React.Dispatch<React.SetStateAction<boolean>>;
+} | null;
+
+export const FilesContext = createContext<Context>(null);
 
 const Files = ({route}: FilesStackProps<'StackFiles'>) => {
   const [content, setContent] = useState<{
@@ -19,39 +25,40 @@ const Files = ({route}: FilesStackProps<'StackFiles'>) => {
   });
   const [load, setLoad] = useState<boolean>(true);
 
-  const fetch = useCallback(async () => {
-    setLoad(true);
+  const fetch = async () => {
     const data = await SagaHelper.run(
       ['dropbox', 'getListFolder'],
       route.params.path,
     );
     setContent(data);
     setLoad(false);
-  }, [route.params]);
+  };
 
   useEffect(() => {
-    fetch();
-  }, [route.params]);
+    if (load) fetch();
+  }, [route.params, load]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      {!load ? (
-        <ScrollView contentContainerStyle={{flexGrow: 1}}>
-          <Text style={styles.title}>Documents</Text>
-          <Text style={styles.subTitle}>Only you</Text>
+    <FilesContext.Provider value={{setLoad}}>
+      <SafeAreaView style={styles.container}>
+        {!load ? (
+          <ScrollView contentContainerStyle={{flexGrow: 1}}>
+            <Text style={styles.title}>Documents</Text>
+            <Text style={styles.subTitle}>Only you</Text>
 
-          <Tools />
-          <ListSettings />
-          <SectionFiles list={content.folder} type={'folder'} />
-          <SectionFiles list={content.files} type={'file'} />
-          <Text style={styles.count}>
-            {content.folder.length} Folders, {content.files.length} File
-          </Text>
-        </ScrollView>
-      ) : (
-        <Loader />
-      )}
-    </SafeAreaView>
+            <Tools />
+            <ListSettings />
+            <SectionFiles list={content.folder} type={'folder'} />
+            <SectionFiles list={content.files} type={'file'} />
+            <Text style={styles.count}>
+              {content.folder.length} Folders, {content.files.length} File
+            </Text>
+          </ScrollView>
+        ) : (
+          <Loader />
+        )}
+      </SafeAreaView>
+    </FilesContext.Provider>
   );
 };
 
