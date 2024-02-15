@@ -63,7 +63,7 @@ const MetaModal: FC<Props> = ({visible, setVisible, path}) => {
             <ScrollView>
               {meta &&
                 Object.entries(meta).map(item => (
-                  <View style={styles.valueContainer}>
+                  <View style={styles.valueContainer} key={item[0].toString()}>
                     <Text style={styles.title}>
                       {item[0].replace(/[^\w\s]|_/g, ' ').trim()}
                     </Text>

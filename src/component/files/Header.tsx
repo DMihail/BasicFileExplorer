@@ -18,7 +18,10 @@ const Header: FC = () => {
     'StackFiles'
   > = useNavigation();
   const route: RouteProp<FilesStackParamList, 'StackFiles'> = useRoute();
+
   const onPress = () => showSimpleToast();
+  const routes = navigation.getState()?.routes;
+  const prevRoute = routes[routes?.length - 2];
 
   return (
     <View style={styles.container}>
@@ -26,10 +29,14 @@ const Header: FC = () => {
         style={styles.backContainer}
         disabled={!route.params.path}
         onPress={() => navigation.goBack()}>
-        {route.params.path && (
+        {prevRoute && typeof prevRoute.params.path === 'string' && (
           <>
             <BackSvg height={18} width={18} />
-            <Text style={styles.title}>Files</Text>
+            <Text style={styles.title}>
+              {prevRoute.params.path
+                ? prevRoute.params.path.replace('/', '')
+                : 'root'}
+            </Text>
           </>
         )}
       </TouchableOpacity>
