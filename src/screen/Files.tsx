@@ -1,5 +1,5 @@
 import React, {useEffect, useState, createContext} from 'react';
-import {SafeAreaView, StyleSheet, Text, ScrollView} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, ScrollView, View} from 'react-native';
 import {FilesStackProps} from '../navigation/types.ts';
 import {DropBoxFolder} from '../utils/types.ts';
 import {COLORS} from '../const/COLORS.ts';
@@ -46,14 +46,24 @@ const Files = ({route}: FilesStackProps<'StackFiles'>) => {
     <FilesContext.Provider value={{setLoad}}>
       <SafeAreaView style={styles.container}>
         {!load ? (
-          <ScrollView contentContainerStyle={{flexGrow: 1}}>
+          <ScrollView contentContainerStyle={styles.scrollView}>
             <Text style={styles.title}>Documents</Text>
             <Text style={styles.subTitle}>Only you</Text>
 
             <Tools />
             <ListSettings />
-            <SectionFiles list={content.folder} type={'folder'} />
-            <SectionFiles list={content.files} type={'file'} />
+            {!!content.folder.length && (
+              <SectionFiles list={content.folder} type={'folder'} />
+            )}
+            {!!content.files.length && (
+              <SectionFiles list={content.files} type={'file'} />
+            )}
+
+            {!content.files.length && !content.folder.length && (
+              <View style={styles.emptyContainer}>
+                <Text style={styles.notFound}>Folder is empty!</Text>
+              </View>
+            )}
             <Text style={styles.count}>
               {content.folder.length} Folders, {content.files.length} File
             </Text>
@@ -72,6 +82,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.black,
+  },
+  scrollView: {
+    flexGrow: 1,
   },
   title: {
     fontSize: 24,
@@ -94,5 +107,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginVertical: 24,
     color: COLORS.white,
+  },
+  notFound: {
+    fontSize: 20,
+    fontWeight: '400',
+    lineHeight: 22,
+    color: COLORS.white,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

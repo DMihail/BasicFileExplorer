@@ -30,11 +30,6 @@ const SectionFiles: FC<Props> = ({list, type}) => {
         contentContainerStyle={styles.content}
         style={styles.list}
         keyExtractor={item => item.name}
-        ListEmptyComponent={() => (
-          <View style={styles.emptyContainer}>
-            <Text style={styles.notFound}>Not found</Text>
-          </View>
-        )}
       />
     </View>
   );
@@ -64,15 +59,5 @@ const styles = StyleSheet.create({
   list: {
     paddingVertical: 20,
     marginHorizontal: 20,
-  },
-  notFound: {
-    fontSize: 20,
-    fontWeight: '400',
-    lineHeight: 22,
-  },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
