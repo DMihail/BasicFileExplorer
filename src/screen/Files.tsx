@@ -1,13 +1,14 @@
-import React, {useCallback, useEffect, useState, createContext} from 'react';
+import React, {useEffect, useState, createContext} from 'react';
 import {SafeAreaView, StyleSheet, Text, ScrollView} from 'react-native';
 import {FilesStackProps} from '../navigation/types.ts';
-import {SagaHelper} from '../redux';
 import {DropBoxFolder} from '../utils/types.ts';
 import {COLORS} from '../const/COLORS.ts';
 import SectionFiles from '../component/files/SectionFiles.tsx';
 import Tools from '../component/Tools.tsx';
 import ListSettings from '../component/files/ListSettings.tsx';
 import Loader from '../component/Loader.tsx';
+import {getListFolder} from '../redux/saga/dropbox.ts';
+import showSimpleToast from '../utils/showSimpleToast.ts';
 
 type Context = {
   setLoad: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,12 +27,15 @@ const Files = ({route}: FilesStackProps<'StackFiles'>) => {
   const [load, setLoad] = useState<boolean>(true);
 
   const fetch = async () => {
-    const data = await SagaHelper.run(
-      ['dropbox', 'getListFolder'],
-      route.params.path,
-    );
-    setContent(data);
-    setLoad(false);
+    try {
+      const data = await getListFolder(route.params.path);
+      setContent(data);
+    } catch (e) {
+      if (__DEV__) console.log(e);
+      showSimpleToast('Failed to get dropbox data');
+    } finally {
+      setLoad(false);
+    }
   };
 
   useEffect(() => {

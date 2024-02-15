@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -17,7 +17,7 @@ const ImageView = ({navigation, route}: FilesStackProps<'ImageView'>) => {
   const [uri, setUri] = useState<string>();
   const [load, setLoad] = useState<boolean>(true);
 
-  const getLink = useCallback(async () => {
+  const getLink = async () => {
     try {
       setLoad(true);
       const data = await getTemporaryLink(route.params.path);
@@ -28,7 +28,7 @@ const ImageView = ({navigation, route}: FilesStackProps<'ImageView'>) => {
       showSimpleToast('Failed to get link');
       navigation.goBack();
     }
-  }, [route.params]);
+  };
 
   useEffect(() => {
     getLink();

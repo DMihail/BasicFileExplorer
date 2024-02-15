@@ -3,10 +3,10 @@
 The application creating by [**React Native**](https://reactnative.dev) is reading data from a remote source via DropBox [**REST**](https://dropbox.github.io/dropbox-api-v2-explorer/#auth_token/from_oauth1) service. You can look it and navigate files and folders.
 
 ## Needed dependencies
+
 You will need Node, Watchman, the React Native command line interface or a JDK and Android Studio.
 
 ## Getting started
-
 
 ```bash
 git clone https://github.com/DMihail/BasicFileExplorer.git
@@ -18,7 +18,6 @@ yarn install
 
 You can duplicate .env.example and name the new copy .env. Adapt the variable to your needs.
 Please note that you need to fill the ACCESS_TOKEN env variable with a Personal Access Token which you can get from [**Dropbox API Explorer**](https://dropbox.github.io/dropbox-api-v2-explorer/#auth_token/from_oauth1) .
-
 
 ## Step 2: Start Application
 
@@ -47,7 +46,7 @@ npm run ios
 yarn ios
 ```
 
-If everything is set up _correctly_, you should see  app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+If everything is set up _correctly_, you should see app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
