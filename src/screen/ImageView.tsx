@@ -5,6 +5,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import {COLORS} from '../const/COLORS.ts';
 import {FilesStackProps} from '../navigation/types.ts';
@@ -24,7 +25,9 @@ const ImageView = ({navigation, route}: FilesStackProps<'ImageView'>) => {
       setUri(data);
       setLoad(false);
     } catch (e) {
-      if (__DEV__) console.log(e);
+      if (__DEV__) {
+        console.log(e);
+      }
       showSimpleToast('Failed to get link');
       navigation.goBack();
     }
@@ -35,32 +38,39 @@ const ImageView = ({navigation, route}: FilesStackProps<'ImageView'>) => {
   }, [route.params]);
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
-        <BackSvg width={24} height={24} />
-      </TouchableOpacity>
+    <SafeAreaView style={styles.view}>
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => navigation.goBack()}>
+          <BackSvg width={24} height={24} />
+        </TouchableOpacity>
 
-      {load ? (
-        <Loader />
-      ) : (
-        <Image
-          style={styles.image}
-          progressiveRenderingEnabled={true}
-          source={{
-            uri,
-          }}
-          resizeMode={'contain'}
-        />
-      )}
-    </View>
+        {load ? (
+          <Loader />
+        ) : (
+          <Image
+            style={styles.image}
+            progressiveRenderingEnabled={true}
+            source={{
+              uri,
+            }}
+            resizeMode={'contain'}
+          />
+        )}
+      </View>
+    </SafeAreaView>
   );
 };
 
 export default ImageView;
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: COLORS.black,

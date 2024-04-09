@@ -2,8 +2,7 @@ import * as React from 'react';
 import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {MainStackParamList, NavigationProps} from './types.ts';
-import Files from '../screen/Files.tsx';
+import {MainStackParamList} from './types.ts';
 import showSimpleToast from '../utils/showSimpleToast.ts';
 import {EmptyComponent} from '../component/EmptyComponent.tsx';
 import HomeSvg from '../../assets/svg/tabs/HomeSvg.tsx';
@@ -12,12 +11,11 @@ import FilesSvg from '../../assets/svg/tabs/FilesSvg.tsx';
 import CreateSvg from '../../assets/svg/tabs/CreateSvg.tsx';
 import PhotosSvg from '../../assets/svg/tabs/PhotosSvg.tsx';
 import AccountSvg from '../../assets/svg/tabs/AccountSvg.tsx';
-import Header from '../component/files/Header.tsx';
 import StackFiles from './stack/FilesStack.tsx';
 
 const Tab = createBottomTabNavigator<MainStackParamList>();
 
-const listeners = ({navigation}: {navigation: NavigationProps}) => ({
+const listeners = () => ({
   tabPress: (event: {preventDefault: () => void}) => {
     showSimpleToast('Not implemented');
     event.preventDefault();
@@ -98,7 +96,7 @@ export default function Navigation() {
 
 const styles = StyleSheet.create({
   tabBarStyle: {
-    height: 60,
+    minHeight: 60,
     backgroundColor: COLORS.darkGray,
   },
   tabBarLabelStyle: {
