@@ -3,6 +3,7 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {View} from 'react-native';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {FilesStackParamList} from '../../navigation/types.ts';
 import DownloadSvg from '../../../assets/svg/fileHeader/DownloadSvg.tsx';
 import LoupeSvg from '../../../assets/svg/fileHeader/LoupeSvg.tsx';
@@ -18,13 +19,13 @@ const Header: FC = () => {
     'StackFiles'
   > = useNavigation();
   const route: RouteProp<FilesStackParamList, 'StackFiles'> = useRoute();
-
+  const insets = useSafeAreaInsets();
   const onPress = () => showSimpleToast();
   const routes = navigation.getState()?.routes;
   const prevRoute = routes[routes?.length - 2];
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {paddingTop: insets.top}]}>
       <TouchableOpacity
         style={styles.backContainer}
         disabled={!route.params.path}
@@ -67,7 +68,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: COLORS.black,
-    height: 60,
     paddingHorizontal: 20,
   },
   title: {
